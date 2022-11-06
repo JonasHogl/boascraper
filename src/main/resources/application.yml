@@ -1,11 +1,20 @@
 spring:
+  config:
+    activate:
+      on-profile: mek
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL81Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL81Dialect
+
 
 konfig:
   user: test
