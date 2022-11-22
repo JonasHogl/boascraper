@@ -1,7 +1,9 @@
 package jonk.mek.boascraper.core.port
 
-interface SystembolagetProductService {
-    abstract fun hämtaSida(sida: Int)
+import java.net.http.HttpResponse
 
-    abstract fun hämtaSida(sida: Int, affär: Int)
+interface SystembolagetProductService {
+    abstract fun hämtaProdukter(): HttpResponse<String>
+
+    abstract fun hämtaProdukter(sida: Int, affär: Int)
 }

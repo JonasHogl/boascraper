@@ -16,5 +16,6 @@ class SystembolagetFetchingTask(produktFetcher: ProduktFetcher) {
     fun hämtaSystembolagetsUtbud() {
         var logger = LoggerFactory.getLogger(this.javaClass)
         logger.debug("hej")
+        produktFetcher.laddaDatabasMedProdukter()
     }
 }
