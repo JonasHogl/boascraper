@@ -10,11 +10,7 @@ import java.net.http.HttpResponse
 @Component
 class SystembolagetProductServiceImpl : SystembolagetProductService {
     val URL = "https://www.systembolaget.se/api/gateway/productsearch/search/"
-    lateinit var client: HttpClient
-
-    init {
-        client = HttpClient.newBuilder().build()
-    }
+    var client: HttpClient = HttpClient.newBuilder().build()
 
     override fun hämtaProdukter(): HttpResponse<String> {
         return client.send(skapaRequest(), HttpResponse.BodyHandlers.ofString() )
