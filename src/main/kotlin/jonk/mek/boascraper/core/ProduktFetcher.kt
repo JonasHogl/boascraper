@@ -15,7 +15,7 @@ class ProduktFetcher(bolagetService: SystembolagetProductService) {
 
 
 
-        logger.error(res.toString())
+        logger.error(res)
     }
 
     fun parsaJson(svar: HttpResponse<String>) {

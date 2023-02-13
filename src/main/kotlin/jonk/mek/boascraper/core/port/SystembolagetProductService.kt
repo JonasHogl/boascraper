@@ -4,7 +4,7 @@ import okhttp3.Response
 import java.net.http.HttpResponse
 
 interface SystembolagetProductService {
-    abstract fun hämtaProdukter(): Response
+    abstract fun hämtaProdukter(): String
 
     abstract fun hämtaProdukter(sida: Int, affär: Int)
 }
