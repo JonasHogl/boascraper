@@ -14,7 +14,8 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
-
+product-config:
+  amount-of-products-fetched-per-call: ${PRODUCTS_PER_CALL:10}
 
 konfig:
   user: test

@@ -1,10 +1,8 @@
 package jonk.mek.boascraper.core.port
 
 import okhttp3.Response
-import java.net.http.HttpResponse
 
 interface SystembolagetProductService {
-    abstract fun hämtaProdukter(): String
-
-    abstract fun hämtaProdukter(sida: Int, affär: Int)
+    fun hämtaProdukter1(sida: Int): Response
+    fun hämtaProdukter2(sida: Int): String
 }
