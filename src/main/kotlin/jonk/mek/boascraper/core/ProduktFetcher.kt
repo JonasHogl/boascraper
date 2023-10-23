@@ -1,63 +1,45 @@
 package jonk.mek.boascraper.core
 
-import com.fasterxml.jackson.core.JsonFactory
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.core.JsonToken
-import jonk.mek.boascraper.commons.exceptions.HttpResponseParsingException
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import jonk.mek.boascraper.core.port.SystembolagetProductService
-import jonk.mek.boascraper.model.Produkt
-import okhttp3.Response
+import jonk.mek.boascraper.model.SystembolagetProduct
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 class ProduktFetcher(bolagetService: SystembolagetProductService) {
     var bolagetService = bolagetService
     var logger = LoggerFactory.getLogger(this.javaClass)
     var nextPage: Int? = null
-    val factory = JsonFactory()
+    var gson = Gson()
 
-    fun laddaDatabasMedProdukter() {
-        try {
-            val produktlista = parsaSvar(bolagetService.hämtaProdukter1(1), 1)
-        } catch (_: HttpResponseParsingException) {
-            logger.error("Fel inträffade vid parsning av produkter")
+    fun laddaDatabasMedAllaProdukter() {
+        val produktLista = mutableListOf<SystembolagetProduct>()
+        for (i in 0..5) {
+            skapaProduktlista(i)
         }
-
     }
 
-    private fun parsaSvar(res: Response, currentPage: Int): List<Produkt> {
-        val responseString = res.body?.string() ?: throw HttpResponseParsingException("Http svar kunde inte hämtas")
-        val parser = factory.createParser(responseString)
+    private fun skapaProduktlista(sida: Int) {
+        var res = bolagetService.hämtaProdukter(sida)
+        //logger.debug(res)
+
+        val produktJsonArray = JsonParser.parseString(res).asJsonObject?.getAsJsonArray("products")
 
 
-        val produktLista: List<Produkt>
-        while (!parser.isClosed) {
-            val token = parser.nextToken()
-            if (token == JsonToken.FIELD_NAME ) {
-                val name = parser.currentName
-                parser.nextToken()
-                when (name) {
-                    "nextPage" -> {
-                        if (parser.intValue == currentPage) {
-                            return Collections.emptyList()
-                        }
-                    }
-                    "products" -> {
-                        // TODO: parsa produkter och spara dem i en lista utav proukter
-                    }
-                }
+        if (produktJsonArray != null) {
+            for (produktJson in produktJsonArray) {
+                produktLista.add(gson.fromJson(produktJson, SystembolagetProduct::class.java))
             }
         }
+
+        logger.debug("har hämtat {} produkter.", produktLista.size)
+
+        logger.debug("produkt {} är: {}", 5, produktLista.get(5).toString())
     }
 
-    private fun parsaProdukter(parser: JsonParser): List<Produkt> {
-        val produktLista = ArrayList<Produkt>()
-        while (!parser.isClosed) {
 
-        }
-    }
 
 
 
