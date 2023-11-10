@@ -9,10 +9,18 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:55000/postgres
     username: postgres
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+    type: org.postgresql.ds.PGSimpleDataSource
+
+  flyway:
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    url: ${spring.datasource.url}
+    driver-class-name: ${spring.datasource.driver-class-name}
+
 
 product-config:
   amount-of-products-fetched-per-call: ${PRODUCTS_PER_CALL:10}

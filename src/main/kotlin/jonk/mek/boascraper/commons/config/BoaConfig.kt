@@ -1,8 +1,8 @@
 package jonk.mek.boascraper.commons.config
 
+import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.boot.context.properties.ConfigurationProperties
-import javax.annotation.PostConstruct
 
 
 @ConfigurationProperties("konfig")

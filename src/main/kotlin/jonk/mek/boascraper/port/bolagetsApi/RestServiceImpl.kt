@@ -1,13 +1,12 @@
 package jonk.mek.boascraper.port.bolagetsApi
 
-import jonk.mek.boascraper.core.port.SystembolagetProductService
+import jonk.mek.boascraper.core.port.RestService
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
-import java.io.Reader
 
 private const val SCHEME = "https"
 private const val URL = "api-extern.systembolaget.se"
@@ -16,7 +15,7 @@ private const val PATH = "sb-api-ecommerce/v1/productsearch/search"
 private const val BASEURL = "https://api-systembolaget.azure-api.net/sb-api-ecommerce/v1"
 
 @Component
-class SystembolagetProductServiceImpl : SystembolagetProductService {
+class RestServiceImpl : RestService {
     var client: OkHttpClient = OkHttpClient()
     val logger = LoggerFactory.getLogger(this.javaClass)
 
